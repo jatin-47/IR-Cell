@@ -9,3 +9,8 @@ To run this web app in your local machine, follow below steps:
 - Run ```python manage.py runserver```
 - Open any web browser (google chrome is recommended)
 - Open the url ```127.0.0.1:8000``` in the browser
+
+
+Jatin Saini
+IIT Kharagpur
+19ME30068
