@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'OutboundDiaries/images/iitkgp_logo.png' %}" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="{% static 'OutboundDiaries/style.css' %}" rel="stylesheet">
+    <title>Outbound Diaries</title>
+</head>
+<body>
+    <nav class="titlebar">
+        <img src="{% static 'OutboundDiaries/images/header.png' %}" alt=" International Relations">
+        <span><a href="https://international.iitkgp.ac.in/team/">International Relations Cell <img src="{% static 'OutboundDiaries/images/irclogo.png' %}" alt="IRC"></a></span>
+    </nav>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">IITKGP Faculty</a></li>
+            <li id="list">
+                <a>IIT KGP Students &#9660;</a>
+                <ul>
+                    <li><a href="#">Programs</a></li>
+                    <li><a href="#">FTP</a></li>
+                    <li><a href="{% url 'diary19' %}">Exchange Diaries</a></li>
+                </ul>
+            </li>
+            <li><a href="#">International Students</a></li>
+            <li><a href="#">International Faculty</a></li>
+            <li><a href="#">Publications</a></li>
+            <li><a href="#">Forever Kgpian</a></li>
+            <li><a href="#">Contact us</a></li>
+        </ul>
+        <aside>
+            
+            <h3>Outbound Diaries</h3>
+            <button id="sidenav"><i class="fa fa-angle-double-left"></i></button>
+            
+            <ul>
+                <li class="{% if year == 2019 %}active{% endif %}"><a href="{% url 'diary19' %}">2019</a></li>
+                <li class="{% if year == 2018 %}active{% endif %}"><a href="{% url 'diary' year='2018' %}">2018</a></li>
+                <li class="{% if year == 2017 %}active{% endif %}"><a href="{% url 'diary' year='2017' %}">2017</a></li>
+                <li class="{% if year == 2016 %}active{% endif %}"><a href="{% url 'diary' year='2016' %}">2016</a></li>
+                <li class="{% if year == 2015 %}active{% endif %}"><a href="{% url 'diary' year='2015' %}">2015</a></li>
+            </ul>
+        </aside>
+    </nav>
+    
+    <main>
+        <header>Exchange Diaries</header>
+        <hr noshade>
+        <h1>
+            &#x25B6; Outbound Diaries {{year}} 
+            {% if bool %}
+            <i class="fa fa-filter"> 
+                Filter by Branch:<br> 
+                <form action="{% url 'submit' year=year %}">
+                    <select name="branchID" id="filter">
+                            <option value="-1">All</option>
+                        {% for branch in branches %}
+                            {% if branch.id == selected_branch %}
+                            <option value="{{branch.id}}" selected>{{branch.branch}}</option>
+                            {% else %}
+                            <option value="{{branch.id}}">{{branch.branch}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button type="submit" id="arrow"><i class="fa fa-arrow-circle-right"></i></button>
+                </form>
+            </i>
+            {% endif %}
+        </h1>
+        
+        {% for student in students %}
+            <div class="student">
+                {% if student.image %}
+                <img src="{{ student.image.url }}" alt="{{student.name}}">
+                {% else %}
+                <img src="{% static 'OutboundDiaries/images/no_image.png' %}" alt="Image not available">
+                {% endif %}
+                <div class="details">
+                    <div class="head">{{student.name}}</div>
+                    <div class="branch">({{student.branch.branch}})</div><br>
+                    <div class="uni"><i>{{student.university.university}}</i></div> 
+                    <div class="area">Research Area: <span>{{student.area}}</span></div>  
+                    <div class="area">Duration: <span>{{student.duration}} Months</span></div> <br>
+                    {% if bool %}
+                    <a href="{% url 'student' student_id=student.id %}">Read More...</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="nodata">No data!</div>
+        {% endfor%}
+        {% if not bool %}
+        {% for QA in interview %}
+            <details>
+                <summary class="question">{{QA.question}}</summary>
+                <p class="answer">
+                    {{QA.answer}}
+                </p>   
+            </details>   
+            {% empty %}  
+            <p class="nodata">No data!</p>    
+        {% endfor%}
+        {% endif %}
+    </main>
+    <footer> Copyright © All Rights Reserved </footer>
+    <script src="{% static 'OutboundDiaries/script.js' %}"></script>
+</body>
+</html>
