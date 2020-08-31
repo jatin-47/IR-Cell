@@ -11,6 +11,8 @@ To run this web app in your local machine, follow below steps:
 - Open the url ```127.0.0.1:8000``` in the browser
 
 
-Jatin Saini
-IIT Kharagpur
-19ME30068
+Jatin Saini<br>
+IIT Kharagpur<br>
+19ME30068<br><br>
+
+![Screenshot](https://github.com/jatin-47/IR_Cell/blob/master/Screenshot%20.png)
