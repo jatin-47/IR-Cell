@@ -16,3 +16,4 @@ IIT Kharagpur<br>
 19ME30068<br><br>
 
 ![Screenshot](https://github.com/jatin-47/IR_Cell/blob/master/Screenshot%20.png)
+![Screenshot](https://github.com/jatin-47/IR_Cell/blob/master/Screenshot%20(229).png)
